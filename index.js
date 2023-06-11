@@ -1,6 +1,5 @@
 const express = require("express")
 const mongoose = require("mongoose")
-// const cors = require("./middlewares/cors")
 const cors = require("cors")
 const trim = require("./middlewares/trim")
 const session = require("./middlewares/session")
