@@ -19,7 +19,7 @@ userController.post("/register",
     body("username").isLength({ min: 2 }).withMessage(
         "Username must be at least 2 characters long."
     ),
-    body("passwrd").isLength({ min: 5 }).withMessage(
+    body("password").isLength({ min: 5 }).withMessage(
         "Password must be at least 5 characters long."
     ),
     async (req, res) => {
@@ -44,6 +44,8 @@ userController.post("/register",
 userController.post("/login", async (req, res) => {
     try {
         const token = await userService.login(req.body.username, req.body.password)
+
+        console.log(req.body)
 
         res.status(200).json(token)
     } catch (error) {
