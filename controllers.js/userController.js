@@ -45,8 +45,6 @@ userController.post("/login", async (req, res) => {
     try {
         const token = await userService.login(req.body.username, req.body.password)
 
-        console.log(req.body)
-
         res.status(200).json(token)
     } catch (error) {
         res.status(401).json({ message: error.message })
