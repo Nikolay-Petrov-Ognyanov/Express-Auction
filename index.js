@@ -4,6 +4,7 @@ const cors = require("cors")
 const trim = require("./middlewares/trim")
 const session = require("./middlewares/session")
 const userController = require("./controllers.js/userController")
+const auctionController = require("./controllers.js/auctionController")
 
 const connectionString = "mongodb://127.0.0.1:27017/auction"
 
@@ -26,6 +27,7 @@ async function start() {
     })
 
     app.use("/users", userController)
+    app.use("/auctions", auctionController)
 
     app.listen(3030, () => console.log("Server started."))
 }
