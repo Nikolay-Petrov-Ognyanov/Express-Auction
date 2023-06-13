@@ -52,14 +52,14 @@ auctionController.post("/",
     }
 )
 
-auctionController.put("/:auctionId", (req, res) => {
+auctionController.put("/:auctionId", async (req, res) => {
     try {
         const { auctionId } = req.params
-        const reqBody = req.body
+        const auctionData = req.body
 
-        const updatedAuction = Auction.findOneAndUpdate(
-            { _id: auctionId }, reqBody, { new: true }
-        )._update
+        const updatedAuction = await Auction.findOneAndUpdate(
+            { _id: auctionId }, auctionData, { new: true }
+        ).exec()
 
         res.status(200).json(updatedAuction)
     } catch (error) {
