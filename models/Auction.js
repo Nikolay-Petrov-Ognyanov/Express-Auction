@@ -2,7 +2,8 @@ const { Schema, model } = require("mongoose")
 
 const auctionSchema = new Schema({
     name: { type: String, required: true, unique: true },
-    price: { type: Number, required: true }
+    price: { type: Number, required: true },
+    expirationTime: { type: Number, required: true }
 })
 
 auctionSchema.index({ name: 1 }, {
