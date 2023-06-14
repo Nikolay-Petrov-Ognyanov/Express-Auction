@@ -69,4 +69,18 @@ auctionController.put("/:auctionId", async (req, res) => {
     }
 })
 
+auctionController.delete("/:auctionId", async (req, res) => {
+    try {
+        const { auctionId } = req.params
+
+        await Auction.deleteOne({ _id: auctionId })
+
+        res.status(204).end()
+    } catch (error) {
+        const message = parseError(error)
+
+        res.status(400).json({ message })
+    }
+})
+
 module.exports = auctionController
