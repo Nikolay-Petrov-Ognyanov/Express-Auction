@@ -18,16 +18,16 @@ auctionController.get("/", async (req, res) => {
 
 auctionController.post("/",
     body("name")
-        .isLength({ min: 2, max: 5 })
+        .isLength({ max: 10 })
         .withMessage(
-            "Name must be at between 2 and 5 characters long."
+            "Name could be at most 10 characters long."
         ),
     body("price")
         .isInt()
         .withMessage("Price must be a whole number.")
-        .isLength({ max: 5 })
+        .isLength({ max: 10 })
         .withMessage(
-            "Price must be at most 5 characters long."
+            "Price must be at most 10 characters long."
         ),
     async (req, res) => {
         try {
