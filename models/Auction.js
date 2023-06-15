@@ -5,7 +5,8 @@ const auctionSchema = new Schema({
     price: { type: Number, required: true },
     expirationTime: { type: Number },
     ownerId: { type: String },
-    bidderId: { type: String }
+    biddersIds: { type: Array },
+    highestBidderId: { type: String }
 })
 
 auctionSchema.index({ name: 1 }, {

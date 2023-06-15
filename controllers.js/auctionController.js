@@ -19,16 +19,12 @@ auctionController.get("/", async (req, res) => {
 auctionController.post("/",
     body("name")
         .isLength({ max: 10 })
-        .withMessage(
-            "Name could be at most 10 characters long."
-        ),
+        .withMessage("Name could be at most 10 characters long."),
     body("price")
         .isInt()
         .withMessage("Price must be a whole number.")
         .isLength({ max: 10 })
-        .withMessage(
-            "Price must be at most 10 characters long."
-        ),
+        .withMessage("Price must be at most 10 characters long."),
     async (req, res) => {
         try {
             const { errors } = validationResult(req)
@@ -37,10 +33,10 @@ auctionController.post("/",
                 throw errors
             }
 
-            const { name, price, expirationTime, ownerId } = req.body
+            const { name, price, expirationTime, ownerId, biddersIds } = req.body
 
             const auction = await auctionService.createAuction(
-                name, price, expirationTime, ownerId
+                name, price, expirationTime, ownerId, biddersIds
             )
 
             res.status(200).json(auction)
