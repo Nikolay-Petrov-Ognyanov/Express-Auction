@@ -4,7 +4,7 @@ async function readAuctions() {
     return await Auction.find()
 }
 
-async function createAuction(name, price, expirationTime) {
+async function createAuction(name, price, expirationTime, ownerId) {
     const existing = await Auction.findOne({ name }).collation(
         { locale: "en", strength: 2 }
     )
@@ -12,7 +12,7 @@ async function createAuction(name, price, expirationTime) {
     if (existing) {
         throw new Error("Name is taken.")
     } else {
-        return await Auction.create({ name, price, expirationTime })
+        return await Auction.create({ name, price, expirationTime, ownerId })
     }
 }
 
