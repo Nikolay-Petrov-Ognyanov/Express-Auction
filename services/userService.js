@@ -10,7 +10,7 @@ async function readUsers() {
     return await User.find()
 }
 
-async function register(username, password) {
+async function register(username, password, wallet) {
     const existing = await User.findOne({ username }).collation({ locale: "en", strength: 2 })
 
     if (existing) {
@@ -18,7 +18,8 @@ async function register(username, password) {
     } else {
         const user = await User.create({
             username,
-            hashedPassword: await bcrypt.hash(password, 10)
+            hashedPassword: await bcrypt.hash(password, 10),
+            wallet
         })
 
         return createToken(user)
@@ -48,12 +49,14 @@ async function logout(token) {
 function createToken(user) {
     const payload = {
         _id: user._id,
-        username: user.username
+        username: user.username,
+        wallet: user.wallet
     }
 
     return {
         _id: user._id,
         username: user.username,
+        wallet: user.wallet,
         accessToken: JWT.sign(payload, secret)
     }
 }

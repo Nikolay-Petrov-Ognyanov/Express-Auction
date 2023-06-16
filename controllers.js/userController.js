@@ -2,6 +2,7 @@ const userService = require("../services/userService")
 const userController = require("express").Router()
 const { body, validationResult } = require("express-validator")
 const { parseError } = require("../util/parser")
+const User = require("../models/User")
 
 userController.get("/", async (req, res) => {
     try {
@@ -30,7 +31,8 @@ userController.post("/register",
                 throw errors
             }
 
-            const token = await userService.register(req.body.username, req.body.password)
+            const { username, password, wallet } = req.body
+            const token = await userService.register(username, password, wallet)
 
             res.status(200).json(token)
         } catch (error) {
@@ -43,7 +45,8 @@ userController.post("/register",
 
 userController.post("/login", async (req, res) => {
     try {
-        const token = await userService.login(req.body.username, req.body.password)
+        const { username, password } = req.body
+        const token = await userService.login(username, password)
 
         res.status(200).json(token)
     } catch (error) {
@@ -58,6 +61,18 @@ userController.post("/logout", async (req, res) => {
         await userService.logout(token)
 
         res.status(204).end()
+    } catch (error) {
+        res.status(401).json({ message: error.message })
+    }
+})
+
+userController.put("/:userId", async (req, res) => {
+    try {
+        const user = req.body
+
+        const updatedUser = await User.findOneAndUpdate({ _id: user._id }, user)
+
+        res.status(200).json(updatedUser)
     } catch (error) {
         res.status(401).json({ message: error.message })
     }
