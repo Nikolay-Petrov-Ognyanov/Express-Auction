@@ -31,8 +31,19 @@ userController.post("/register",
                 throw errors
             }
 
-            const { username, password, wallet } = req.body
-            const token = await userService.register(username, password, wallet)
+            const {
+                username,
+                password,
+                wallet,
+                wonAuctions
+            } = req.body
+
+            const token = await userService.register(
+                username,
+                password,
+                wallet,
+                wonAuctions
+            )
 
             res.status(200).json(token)
         } catch (error) {
