@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose")
 const auctionSchema = new Schema({
     name: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
+    deposit: { type: Number },
     expirationTime: { type: Number },
     ownerId: { type: String },
     biddersIds: { type: Array },

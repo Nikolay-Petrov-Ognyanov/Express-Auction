@@ -7,6 +7,7 @@ async function readAuctions() {
 async function createAuction(
     name,
     price,
+    deposit,
     expirationTime,
     ownerId,
     biddersIds
@@ -21,6 +22,7 @@ async function createAuction(
         return await Auction.create({
             name,
             price,
+            deposit,
             expirationTime,
             ownerId,
             biddersIds
