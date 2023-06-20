@@ -9,6 +9,7 @@ const auctionSchema = new Schema({
     biddersIds: { type: Array },
     highestBidderId: { type: String },
     previousBidderId: { type: String },
+    lastBid: { type: Number }
 })
 
 auctionSchema.index({ name: 1 }, {

@@ -12,7 +12,7 @@ auctionController.get("/", async (req, res) => {
     } catch (error) {
         const message = parseError(error)
 
-        res.status(400).json({ message })
+        res.status(200).json({ message })
     }
 })
 
@@ -55,7 +55,7 @@ auctionController.post("/",
         } catch (error) {
             const message = parseError(error)
 
-            res.status(400).json({ message })
+            res.status(200).json({ message })
         }
     }
 )
@@ -73,7 +73,7 @@ auctionController.put("/:auctionId", async (req, res) => {
     } catch (error) {
         const message = parseError(error)
 
-        res.status(400).json({ message })
+        res.status(200).json({ message })
     }
 })
 
@@ -87,7 +87,7 @@ auctionController.delete("/:auctionId", async (req, res) => {
     } catch (error) {
         const message = parseError(error)
 
-        res.status(400).json({ message })
+        res.status(200).json({ message })
     }
 })
 

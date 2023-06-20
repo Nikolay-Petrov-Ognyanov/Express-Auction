@@ -12,7 +12,7 @@ userController.get("/", async (req, res) => {
     } catch (error) {
         const message = parseError(error)
 
-        res.status(400).json({ message })
+        res.status(200).json({ message })
     }
 })
 
@@ -49,7 +49,7 @@ userController.post("/register",
         } catch (error) {
             const message = parseError(error)
 
-            res.status(400).json({ message })
+            res.status(200).json({ message })
         }
     }
 )
@@ -61,7 +61,7 @@ userController.post("/login", async (req, res) => {
 
         res.status(200).json(token)
     } catch (error) {
-        res.status(401).json({ message: error.message })
+        res.status(200).json({ message: error.message })
     }
 })
 
@@ -73,7 +73,7 @@ userController.post("/logout", async (req, res) => {
 
         res.status(204).end()
     } catch (error) {
-        res.status(401).json({ message: error.message })
+        res.status(200).json({ message: error.message })
     }
 })
 
@@ -85,7 +85,7 @@ userController.put("/:userId", async (req, res) => {
 
         res.status(200).json(updatedUser)
     } catch (error) {
-        res.status(401).json({ message: error.message })
+        res.status(200).json({ message: error.message })
     }
 })
 

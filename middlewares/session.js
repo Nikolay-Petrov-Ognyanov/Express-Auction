@@ -10,7 +10,7 @@ module.exports = () => (req, res, next) => {
             req.user = payload
             req.token = token
         } catch (error) {
-            return res.status(401).json({ message: "Invalid authorization token." })
+            return res.status(200).json({ message: "Invalid authorization token." })
         }
     }
 
