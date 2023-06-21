@@ -4,7 +4,10 @@ const userSchema = new Schema({
     username: { type: String, required: true, unique: true },
     hashedPassword: { type: String, required: true },
     wallet: { type: Number },
-    wonAuctions: { type: Array }
+    createdAuctions: { type: Array },
+    soldAuctions: { type: Array },
+    bidAuctions: { type: Array },
+    wonAuctions: { type: Array },
 })
 
 userSchema.index({ username: 1 }, {

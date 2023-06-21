@@ -38,8 +38,7 @@ auctionController.post("/",
                 price,
                 deposit,
                 expirationTime,
-                ownerId,
-                biddersIds
+                ownerId
             } = req.body
 
             const auction = await auctionService.createAuction(
@@ -47,8 +46,7 @@ auctionController.post("/",
                 price,
                 deposit,
                 expirationTime,
-                ownerId,
-                biddersIds
+                ownerId
             )
 
             res.status(200).json(auction)

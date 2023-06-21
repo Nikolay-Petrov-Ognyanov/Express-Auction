@@ -9,8 +9,7 @@ async function createAuction(
     price,
     deposit,
     expirationTime,
-    ownerId,
-    biddersIds
+    ownerId
 ) {
     const existing = await Auction.findOne({ name }).collation(
         { locale: "en", strength: 2 }
@@ -24,8 +23,7 @@ async function createAuction(
             price,
             deposit,
             expirationTime,
-            ownerId,
-            biddersIds
+            ownerId
         })
     }
 }

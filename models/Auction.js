@@ -6,7 +6,6 @@ const auctionSchema = new Schema({
     deposit: { type: Number },
     expirationTime: { type: Number },
     ownerId: { type: String },
-    biddersIds: { type: Array },
     highestBidderId: { type: String },
     previousBidderId: { type: String },
     lastBid: { type: Number }

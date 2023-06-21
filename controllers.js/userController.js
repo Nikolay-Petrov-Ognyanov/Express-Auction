@@ -35,14 +35,20 @@ userController.post("/register",
                 username,
                 password,
                 wallet,
-                wonAuctions
+                createdAuctions,
+                soldAuctions,
+                bidAuctions,
+                wonAuctions,
             } = req.body
 
             const token = await userService.register(
                 username,
                 password,
                 wallet,
-                wonAuctions
+                createdAuctions,
+                soldAuctions,
+                bidAuctions,
+                wonAuctions,
             )
 
             res.status(200).json(token)
