@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt")
 const JWT = require("jsonwebtoken")
 
 const secret = "jwtsecret"
-
 const tokenBlacklist = new Set()
 
 async function readUsers() {
