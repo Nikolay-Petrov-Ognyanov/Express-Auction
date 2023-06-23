@@ -29,9 +29,7 @@ auctionController.post("/",
         try {
             const { errors } = validationResult(req)
 
-            if (errors.length > 0) {
-                throw errors
-            }
+            if (errors.length > 0) throw errors
 
             const {
                 name,
