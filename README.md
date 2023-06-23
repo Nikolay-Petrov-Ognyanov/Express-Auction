@@ -1,6 +1,6 @@
 # Auction System API Documentation
 
-Welcome to the documentation for the Auction System API. This documentation provides a comprehensive overview of the API, including setup instructions, project structure, endpoints, models, services, controllers, and middlewares. Use this guide to understand the functionality and usage of the API.
+Welcome to the documentation for the Auction System API. This documentation provides a comprehensive overview of the API, including setup instructions, project structure, endpoints, models, services, controllers, middlewares, and utility functions. Use this guide to understand the functionality and usage of the API.
 
 ## Table of Contents
 - [Overview](#overview)
@@ -13,6 +13,7 @@ Welcome to the documentation for the Auction System API. This documentation prov
 - [Services](#services)
 - [Controllers](#controllers)
 - [Middlewares](#middlewares)
+- [Utility Functions](#utility-functions)
 
 ## Overview
 
@@ -26,14 +27,14 @@ To set up and run the Auction System API, follow these steps:
 2. Clone the project repository.
 3. Navigate to the project directory using a terminal.
 4. Install the required dependencies by running the following command:
-   ```
-   npm install
-   ```
+```
+npm install
+```
 5. Start the MongoDB server using the appropriate command for your system.
 6. Start the API server by running the following command:
-   ```
-   npm start
-   ```
+```
+npm start
+```
 7. The server should now be running and accessible at http://localhost:3030.
 
 ## Project Structure
@@ -54,6 +55,8 @@ The project structure is organized in a clean and modular manner to enhance code
 - /controllers              // Request handlers
   - auctionController.js    // Controller for Auction-related endpoints
   - userController.js       // Controller for User-related endpoints
+- /util                     // Utility functions
+  - parser.js               // Function for parsing and formatting error messages
 ```
 
 ## Dependencies
@@ -64,76 +67,77 @@ The Auction System API utilizes a range of dependencies to ensure seamless funct
 - Mongoose: An elegant MongoDB object modeling library for Node.js.
 - Cors: Middleware for enabling Cross-Origin Resource Sharing (CORS).
 - Bcrypt: A library for hashing passwords securely.
-- Jsonwebtoken (JWT): A library for creating and validating JSON Web Tokens.
-- Express-validator: Middleware for validating and sanitizing request data.
-
-For a complete list of dependencies and their versions, please refer to the `package.json` file.
 
 ## Usage
 
-Once the API server is up and running, you can interact with it by sending HTTP requests to the provided endpoints. The API supports a variety of operations for managing auctions and users. To use the API effectively, follow the guidelines below:
-
-- Use an HTTP client tool such as cURL, Postman, or Insomnia to send requests to the API.
-- Set the appropriate headers and request bodies as required by each endpoint.
-- Refer to the next section for detailed information about the available endpoints and their usage.
+Once the Auction System API is up and running, you can interact with it using various API endpoints. Refer to the [API Endpoints](#api-endpoints) section for detailed information about each endpoint and their request/response formats.
 
 ## API Endpoints
 
-The Auction System API provides the following endpoints:
+The Auction System API provides the following endpoints for interacting with the system:
 
-- **GET /users**: Retrieve a list of all users.
-- **POST /users/register**:
+- `GET /`: Retrieves a welcome message.
+- `GET /users`: Retrieves a list of all users.
+- `POST /users/register`: Registers a new user.
+- `POST /users/login`: Logs in a user.
+- `POST /users/logout`: Logs out a user.
+- `PUT /users/:userId`: Updates user information.
+- `GET /auctions`: Retrieves a list of all auctions.
+- `POST
 
- Register a new user.
-- **POST /users/login**: Log in with a user account.
-- **POST /users/logout**: Log out from the current user session.
-- **GET /users/:userId**: Retrieve user information by ID.
-- **PUT /users/:userId**: Update user information by ID.
-- **GET /auctions**: Retrieve a list of all auctions.
-- **GET /auctions/:auctionId**: Retrieve auction information by ID.
-- **POST /auctions**: Create a new auction.
-- **PUT /auctions/:auctionId**: Update an auction by ID.
-- **DELETE /auctions/:auctionId**: Delete an auction by ID.
+ /auctions`: Creates a new auction.
+- `GET /auctions/:auctionId`: Retrieves details of a specific auction.
+- `PUT /auctions/:auctionId`: Updates auction information.
+- `POST /auctions/:auctionId/bids`: Places a bid on a specific auction.
 
-Note: Replace `:userId` and `:auctionId` with the actual IDs of users and auctions, respectively.
-
-For detailed information about request formats and required parameters, refer to the respective controller files and the descriptions provided in the code.
+Refer to the API documentation for detailed information about the request/response formats and authentication requirements for each endpoint.
 
 ## Models
 
-The Auction System API includes two Mongoose models:
+The Auction System API utilizes the following models:
 
-1. **Auction**: Represents an auction item with properties such as name, price, deposit, expiration time, and references to the owner and bidders.
-2. **User**: Represents a user with properties such as username, hashed password, wallet balance, and arrays for tracking created, sold, bid, and won auctions.
+- `User`: Represents a user in the system. The user model includes properties such as `username`, `email`, and `password`.
+- `Auction`: Represents an auction in the system. The auction model includes properties such as `title`, `description`, `startingBid`, and `endDate`.
 
-For more details about the schema and available methods, refer to the respective model files.
+Refer to the API documentation for detailed information about each model and their properties.
 
 ## Services
 
-The Auction System API uses services to encapsulate the business logic and interact with the database. The services provided are:
+The Auction System API includes the following services:
 
-- **auctionService**: Contains methods for reading auctions and creating new auctions.
-- **userService**: Provides functionality for user registration, login, logout, and reading users.
+- `userService`: Provides functions for user-related operations, such as user registration, login, and logout.
+- `auctionService`: Provides functions for auction-related operations, such as creating auctions, retrieving auctions, and placing bids.
 
-These services utilize the Mongoose models to perform CRUD operations on the database.
+Refer to the API documentation for detailed information about each service and the available operations.
 
 ## Controllers
 
-The API includes controllers that define the request handlers for different endpoints. They validate the incoming requests, invoke the appropriate services, and send back the response. The provided controllers are:
+The Auction System API includes the following controllers:
 
-- **auctionController**: Handles endpoints related to auctions, such as reading auctions, creating new auctions, updating auctions, and deleting auctions.
-- **userController**: Manages endpoints related to users, including user registration, login, logout, and updating user information.
+- `userController`: Handles user-related endpoints and communicates with the `userService`.
+- `auctionController`: Handles auction-related endpoints and communicates with the `auctionService`.
 
-Each controller exports an Express Router instance, which can be mounted in the main Express app to handle the respective routes.
+Refer to the API documentation for detailed information about each controller and the supported endpoints.
 
 ## Middlewares
 
-The Auction System API includes two custom middlewares:
+The Auction System API includes the following middlewares:
 
-- **session**: Middleware for parsing and validating the authorization token sent in the request headers. It extracts the payload from the token and attaches it to the request object as `req.user`.
-- **trim**: Middleware for trimming the request data. It trims leading and trailing whitespace from the values of request parameters, query strings, and body.
+- `session`: Middleware for parsing and validating authorization tokens.
+- `trim`: Middleware for trimming request data.
 
-These middlewares are used in the main Express app to process incoming requests before they reach the controllers.
+Refer to the API documentation for detailed information about each middleware and their usage.
+
+## Utility Functions
+
+The Auction System API includes the following utility function:
+
+- `parseError`: Function for parsing and formatting error messages.
+
+Refer to the API documentation for detailed information about the utility function and its usage.
+```
+
+Please note that this documentation assumes you have already set up the necessary environment and have a basic understanding of Node.js, MongoDB, and web API development.
 
 ---
 
